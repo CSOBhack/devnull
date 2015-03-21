@@ -43,12 +43,9 @@ public class JsonFetchTest {
 			throw new RuntimeException("Failed : HTTP error code : " + response.getStatusLine().getStatusCode());
 		}
 		BufferedReader br = new BufferedReader(new InputStreamReader((response.getEntity().getContent())));
-		String output;
+		String output = br.readLine();
 		System.out.println("============Output:============");
-
-		while ((output = br.readLine()) != null) {
-			System.out.println(output);
-		}
+                System.out.println(output);
 
 		// System.out.println(node.toString());
 	}

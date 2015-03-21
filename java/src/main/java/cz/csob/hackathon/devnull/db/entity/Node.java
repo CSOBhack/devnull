@@ -36,7 +36,7 @@ public class Node {
 	private String name;
 
 	@Column(name = "parent_id", unique = false, nullable = false)
-	private int parentId;
+	private Integer parentId;
 
 	@Column(name = "users", unique = false, nullable = false)
 	private int users;
@@ -53,7 +53,10 @@ public class Node {
 		nodeId = js.getInt("id");
 		ip = js.getString("ip_address");
 		name = js.getString("venue_name");
-		parentId = js.getInt("parent_id");
+                if (js.get("parent_id") == null)
+                    parentId = 0;
+                else
+                    parentId = js.getInt("parent_id");
 		users = js.getInt("active_users");
 
 		for (int i = 0; i < arr.length(); i++) {
@@ -93,13 +96,7 @@ public class Node {
 		this.name = name;
 	}
 
-	public int getParentId() {
-		return parentId;
-	}
-
-	public void setParentId(int parentId) {
-		this.parentId = parentId;
-	}
+	
 
 	public int getUsers() {
 		return users;
@@ -116,6 +113,8 @@ public class Node {
 	public void setLayers(List<Layer> layers) {
 		this.layers = layers;
 	}
+        
+        
 
 	@Override
 	public int hashCode() {
@@ -125,7 +124,7 @@ public class Node {
 		result = prime * result + ((ip == null) ? 0 : ip.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + nodeId;
-		result = prime * result + parentId;
+		result = prime * result + getParentId();
 		result = prime * result + users;
 		return result;
 	}
@@ -156,7 +155,7 @@ public class Node {
 			return false;
 		if (nodeId != other.nodeId)
 			return false;
-		if (parentId != other.parentId)
+		if (getParentId() != other.getParentId())
 			return false;
 		if (users != other.users)
 			return false;
@@ -165,7 +164,21 @@ public class Node {
 
 	@Override
 	public String toString() {
-		return "Node [id=" + id + ", nodeId=" + nodeId + ", ip=" + ip + ", name=" + name + ", parentId=" + parentId + ", users=" + users + ", layers=" + layers + "]";
+		return "Node [id=" + id + ", nodeId=" + nodeId + ", ip=" + ip + ", name=" + name + ", parentId=" + getParentId() + ", users=" + users + ", layers=" + layers + "]";
 	}
+
+    /**
+     * @return the parentId
+     */
+    public Integer getParentId() {
+        return parentId;
+    }
+
+    /**
+     * @param parentId the parentId to set
+     */
+    public void setParentId(Integer parentId) {
+        this.parentId = parentId;
+    }
 
 }

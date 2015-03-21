@@ -50,7 +50,7 @@ public class Event {
 		eventId = js.getInt("event_id");
 		String dateStr = js.getString("happened_at");
 		happenedAt = DateUtil.parseTimezoneDateTime(dateStr);
-		actorId = js.getJSONObject("_embedded").getInt("id");
+		actorId = js.getJSONObject("_embedded").getJSONObject("actor").getInt("id");
 		nodeId = js.getJSONObject("_embedded").getJSONObject("action").getInt("id");
 		action = js.getJSONObject("_embedded").getJSONObject("action").getString("name");
 	}
