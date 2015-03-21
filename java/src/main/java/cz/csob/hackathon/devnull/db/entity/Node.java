@@ -15,6 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.apache.commons.lang3.math.NumberUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -50,13 +51,16 @@ public class Node {
 	public Node(JSONObject js) {
 		JSONArray arr = js.getJSONObject("_embedded").getJSONArray("layers");
 
+		System.out.println(js.toString());
+
 		nodeId = js.getInt("id");
 		ip = js.getString("ip_address");
 		name = js.getString("venue_name");
-                if (js.get("parent_id") == null)
-                    parentId = 0;
-                else
-                    parentId = js.getInt("parent_id");
+		if (js.get("parent_id") == null && NumberUtils.isNumber(js.getString("parent_id"))) {
+			parentId = js.getInt("parent_id");
+		} else {
+			parentId = -1;
+		}
 		users = js.getInt("active_users");
 
 		for (int i = 0; i < arr.length(); i++) {
@@ -96,8 +100,6 @@ public class Node {
 		this.name = name;
 	}
 
-	
-
 	public int getUsers() {
 		return users;
 	}
@@ -113,8 +115,6 @@ public class Node {
 	public void setLayers(List<Layer> layers) {
 		this.layers = layers;
 	}
-        
-        
 
 	@Override
 	public int hashCode() {
@@ -167,18 +167,19 @@ public class Node {
 		return "Node [id=" + id + ", nodeId=" + nodeId + ", ip=" + ip + ", name=" + name + ", parentId=" + getParentId() + ", users=" + users + ", layers=" + layers + "]";
 	}
 
-    /**
-     * @return the parentId
-     */
-    public Integer getParentId() {
-        return parentId;
-    }
+	/**
+	 * @return the parentId
+	 */
+	public Integer getParentId() {
+		return parentId;
+	}
 
-    /**
-     * @param parentId the parentId to set
-     */
-    public void setParentId(Integer parentId) {
-        this.parentId = parentId;
-    }
+	/**
+	 * @param parentId
+	 *            the parentId to set
+	 */
+	public void setParentId(Integer parentId) {
+		this.parentId = parentId;
+	}
 
 }
