@@ -24,6 +24,9 @@ public class Layer {
 	@Column(name = "layer_id", unique = false, nullable = false)
 	private int layerId;
 
+	@Column(name = "node_id", unique = false, nullable = false)
+	private int nodeId;
+
 	@Column(unique = false, nullable = false)
 	private int robustness;
 
@@ -42,7 +45,8 @@ public class Layer {
 	public Layer() {
 	}
 
-	public Layer(JSONObject js) {
+	public Layer(int nodeId, JSONObject js) {
+		this.nodeId = nodeId;
 		layerId = js.getInt("id");
 		robustness = js.getInt("current_robustness");
 		name = js.getString("name");
@@ -105,6 +109,14 @@ public class Layer {
 
 	public void setMaxRobustness(Integer maxRobustness) {
 		this.maxRobustness = maxRobustness;
+	}
+
+	public int getNodeId() {
+		return nodeId;
+	}
+
+	public void setNodeId(int nodeId) {
+		this.nodeId = nodeId;
 	}
 
 	@Override
