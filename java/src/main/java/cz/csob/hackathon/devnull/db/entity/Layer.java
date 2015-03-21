@@ -21,11 +21,17 @@ public class Layer {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(name = "layer_id", unique = true, nullable = false)
+	@Column(name = "layer_id", unique = false, nullable = false)
 	private int layerId;
 
 	@Column(unique = false, nullable = false)
 	private int robustness;
+
+	@Column(name = "user_capacity", unique = false, nullable = true)
+	private Integer userCapacity;
+
+	@Column(name = "max_robustness", unique = false, nullable = true)
+	private Integer maxRobustness;
 
 	@Column(unique = false, nullable = false)
 	private String name;
@@ -41,6 +47,8 @@ public class Layer {
 		robustness = js.getInt("current_robustness");
 		name = js.getString("name");
 		level = js.getInt("level");
+		this.userCapacity = js.getInt("user_capacity");
+		this.maxRobustness = js.getInt("max_robustness");
 	}
 
 	public Long getId() {
@@ -81,6 +89,22 @@ public class Layer {
 
 	public void setLevel(int level) {
 		this.level = level;
+	}
+
+	public Integer getUserCapacity() {
+		return userCapacity;
+	}
+
+	public void setUserCapacity(Integer userCapacity) {
+		this.userCapacity = userCapacity;
+	}
+
+	public Integer getMaxRobustness() {
+		return maxRobustness;
+	}
+
+	public void setMaxRobustness(Integer maxRobustness) {
+		this.maxRobustness = maxRobustness;
 	}
 
 	@Override

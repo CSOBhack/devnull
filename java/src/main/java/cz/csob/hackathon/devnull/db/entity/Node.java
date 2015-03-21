@@ -27,7 +27,7 @@ public class Node {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(name = "node_id", unique = true, nullable = false)
+	@Column(name = "node_id", unique = false, nullable = false)
 	private int nodeId;
 
 	@Column(unique = false, nullable = false)

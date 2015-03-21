@@ -27,11 +27,11 @@ public class Event {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(name = "event_id", unique = true, nullable = false)
+	@Column(name = "event_id", unique = false, nullable = false)
 	private int eventId;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "happened_at", nullable = false)
+	@Column(name = "happened_at", nullable = true)
 	private Date happenedAt;
 
 	@Column(name = "actor_id", unique = false, nullable = false)

@@ -24,11 +24,20 @@ public class RestTest {
 	@Test
 	public void downloadTest() throws MalformedURLException, IOException {
 		InstanceCreator.getJson();
+
+		System.out.println("EVENTS");
+		System.out.println("----------------");
 		ArrayList<Event> arr = InstanceCreator.getEventList();
-		System.out.println(arr.get(0).getEventId() + " " + arr.get(0).getAction());
+		for (Event e : arr) {
+			System.out.println("EVENT = " + e.toString());
+		}
+		System.out.println("----------------");
+
+		System.out.println("HACKERS");
 		ArrayList<Hacker> arr1 = InstanceCreator.getHackList();
 		System.out.println(arr1.get(0).getHackerId() + " " + arr1.get(0).getName());
 
+		System.out.println("NODES");
 		List<Node> arr2 = InstanceCreator.getNodeList();
 		for (Node n : arr2) {
 			System.out.println(n.toString());

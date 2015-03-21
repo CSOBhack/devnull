@@ -21,7 +21,7 @@ public class Hacker {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(name = "hacker_id", unique = true, nullable = false)
+	@Column(name = "hacker_id", unique = false, nullable = false)
 	private int hackerId;
 
 	@Column(name = "name", unique = false, nullable = false)
