@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from flask import render_template
 from . import main
-from app.main.models import Node
+from app.main.models import Node, Event
 
 
 @main.route('/')
