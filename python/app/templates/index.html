@@ -4,11 +4,17 @@
 {% block content %}
 
 {% for node in nodes %}
-  {% for event in node.events %}
-    {{ node.name }} {{ event.action }} <br>
-  {% endfor %}
+<div class="col-md-3">
+<div class="panel panel-default">
+  <div class="panel-heading">{{ node.name }}</div>
+  <div class="panel-body">
+    Node ID: {{ node.node_id }}<br>
+    IP: {{ node.ip }}<br> 
+    Active users: {{ node.users }}<br>
+  </div>
+  </div>
+</div>
 {% endfor %}
-
 
 {{ super() }}
 {% endblock %}
