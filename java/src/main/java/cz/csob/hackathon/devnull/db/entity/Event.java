@@ -16,12 +16,14 @@ public class Event {
     private final int id;
     private final String timestamp;
     private final int actorId;
+    private final int nodeId;
     private final String action;
     
     public Event(JSONObject js) {
         id = js.getInt("event_id");
         timestamp = js.getString("timestamp");
         actorId = js.getJSONObject("_embedded").getInt("id");
+        nodeId = js.getJSONObject("_embedded").getJSONObject("action").getInt("id");
         action = js.getJSONObject("_embedded").getJSONObject("action").getString("name");
     }
 
@@ -51,5 +53,12 @@ public class Event {
      */
     public String getAction() {
         return action;
+    }
+
+    /**
+     * @return the nodeId
+     */
+    public int getNodeId() {
+        return nodeId;
     }
 }
