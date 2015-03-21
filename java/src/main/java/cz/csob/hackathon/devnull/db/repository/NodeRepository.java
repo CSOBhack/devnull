@@ -2,12 +2,11 @@ package cz.csob.hackathon.devnull.db.repository;
 
 import java.util.List;
 
-import org.springframework.data.repository.Repository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-import cz.csob.hackathon.devnull.db.entity.TestTable;
+import cz.csob.hackathon.devnull.db.entity.Node;
 
-public interface TestTableRepository extends Repository<TestTable, Long> {
+public interface NodeRepository extends JpaRepository<Node, Long> {
 
-	List<TestTable> findAll();
-
+	List<Node> findAll();
 }

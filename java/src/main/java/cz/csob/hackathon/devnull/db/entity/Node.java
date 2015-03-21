@@ -5,73 +5,167 @@
 package cz.csob.hackathon.devnull.db.entity;
 
 import java.util.ArrayList;
-import org.json.*;
+import java.util.List;
 
-/**
- *
- * @author tomas
- */
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+@Entity
+@Table(name = "nodes")
 public class Node {
-    private final int id;
-    private final String ip;
-    private final String name;
-    private final int parentId;
-    private int users;
-    private ArrayList<Layer> layers;
-    
-    public Node(JSONObject js) {
-        JSONArray arr = js.getJSONObject("_embedded").getJSONArray("layers");
-        
-        id = js.getInt("id");
-        ip = js.getString("ip_address");
-        name = js.getString("venue_name");
-        parentId = js.getInt("parent_id");
-        users = js.getInt("active_users");
-        
-        for (int i = 0; i < arr.length(); i++) {
-            layers.add(new Layer(arr.getJSONObject(i)));
-        }
-    }
 
-    /**
-     * @return the id
-     */
-    public int getId() {
-        return id;
-    }
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-    /**
-     * @return the ip
-     */
-    public String getIp() {
-        return ip;
-    }
+	@Column(name = "node_id", unique = true, nullable = false)
+	private int nodeId;
 
-    /**
-     * @return the name
-     */
-    public String getName() {
-        return name;
-    }
+	@Column(unique = false, nullable = false)
+	private String ip;
 
-    /**
-     * @return the parentId
-     */
-    public int getParentId() {
-        return parentId;
-    }
+	@Column(unique = false, nullable = false)
+	private String name;
 
-    /**
-     * @return the users
-     */
-    public int getUsers() {
-        return users;
-    }
+	@Column(name = "parent_id", unique = false, nullable = false)
+	private int parentId;
 
-    /**
-     * @return the layers
-     */
-    public ArrayList<Layer> getLayers() {
-        return layers;
-    }
+	@Column(name = "users", unique = false, nullable = false)
+	private int users;
+
+	@Transient
+	private List<Layer> layers = new ArrayList<Layer>();
+
+	public Node() {
+	}
+
+	public Node(JSONObject js) {
+		JSONArray arr = js.getJSONObject("_embedded").getJSONArray("layers");
+
+		nodeId = js.getInt("id");
+		ip = js.getString("ip_address");
+		name = js.getString("venue_name");
+		parentId = js.getInt("parent_id");
+		users = js.getInt("active_users");
+
+		for (int i = 0; i < arr.length(); i++) {
+			layers.add(new Layer(arr.getJSONObject(i)));
+		}
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public int getNodeId() {
+		return nodeId;
+	}
+
+	public void setNodeId(int nodeId) {
+		this.nodeId = nodeId;
+	}
+
+	public String getIp() {
+		return ip;
+	}
+
+	public void setIp(String ip) {
+		this.ip = ip;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public int getParentId() {
+		return parentId;
+	}
+
+	public void setParentId(int parentId) {
+		this.parentId = parentId;
+	}
+
+	public int getUsers() {
+		return users;
+	}
+
+	public void setUsers(int users) {
+		this.users = users;
+	}
+
+	public List<Layer> getLayers() {
+		return layers;
+	}
+
+	public void setLayers(List<Layer> layers) {
+		this.layers = layers;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((ip == null) ? 0 : ip.hashCode());
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + nodeId;
+		result = prime * result + parentId;
+		result = prime * result + users;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Node other = (Node) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		if (ip == null) {
+			if (other.ip != null)
+				return false;
+		} else if (!ip.equals(other.ip))
+			return false;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		if (nodeId != other.nodeId)
+			return false;
+		if (parentId != other.parentId)
+			return false;
+		if (users != other.users)
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "Node [id=" + id + ", nodeId=" + nodeId + ", ip=" + ip + ", name=" + name + ", parentId=" + parentId + ", users=" + users + ", layers=" + layers + "]";
+	}
+
 }

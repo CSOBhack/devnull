@@ -11,8 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import cz.csob.hackathon.devnull.db.entity.TestTable;
-import cz.csob.hackathon.devnull.db.repository.TestTableRepository;
+import cz.csob.hackathon.devnull.db.entity.Node;
+import cz.csob.hackathon.devnull.db.repository.NodeRepository;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Start.class)
@@ -25,13 +25,26 @@ public class DbTest {
 	}
 
 	@Autowired
-	private TestTableRepository repo;
+	private NodeRepository nodeRepo;
 
 	@Test
-	public void objectMapperTest() {
-		List<TestTable> list = repo.findAll();
-		for (TestTable tbl : list) {
-			System.out.println(tbl.toString());
+	public void selectTest() {
+		List<Node> list = nodeRepo.findAll();
+		for (Node oneNode : list) {
+			System.out.println(oneNode.toString());
 		}
+	}
+
+	@Test
+	public void saveTest() {
+		Node node = new Node();
+		node.setIp("127.0.0.1");
+		node.setName("Jméno nody");
+		node.setNodeId(1);
+		node.setParentId(2);
+		node.setUsers(17);
+
+		nodeRepo.save(node);
+		System.out.println("Saved with ID = " + node.getId());
 	}
 }
