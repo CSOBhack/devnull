@@ -4,7 +4,9 @@
 {% block content %}
 
 {% for node in nodes %}
-  {{ node.users }}
+  {% for event in node.events %}
+    {{ node.name }} {{ event.action }}<br>
+  {% endfor %}
 {% endfor %}
 
 
