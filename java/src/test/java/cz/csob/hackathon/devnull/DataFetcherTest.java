@@ -43,8 +43,6 @@ public class DataFetcherTest {
 
 	@Test
 	public void fillAll() throws MalformedURLException, IOException {
-		// eventRepo.truncateTable();
-
 		InstanceCreator.getJson();
 		nodeRepo.deleteAllInBatch();
 		List<Node> nodes = InstanceCreator.getNodeList();
@@ -59,7 +57,6 @@ public class DataFetcherTest {
 		hackerRepo.save(InstanceCreator.getHackList());
 
 		eventRepo.deleteAllInBatch();
-		// eventRepo.truncateTable();
 		eventRepo.save(InstanceCreator.getEventList());
 	}
 

@@ -27,7 +27,7 @@ public class RestTest {
 
 		System.out.println("EVENTS");
 		System.out.println("----------------");
-		ArrayList<Event> arr = InstanceCreator.getEventList();
+		List<Event> arr = InstanceCreator.getEventList();
 		for (Event e : arr) {
 			System.out.println("EVENT = " + e.toString());
 		}
