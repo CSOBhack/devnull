@@ -21,7 +21,6 @@ class Event(db.Model):
 
     action = db.Column(db.String(255))
     event_id = db.Column(db.Integer, primary_key=True)
-    actor_id = db.Column(db.Integer)
     happened_at = db.Column(db.DateTime)
     node_id = db.Column(db.Integer, db.ForeignKey('nodes.node_id'))
 
