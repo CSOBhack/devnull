@@ -64,7 +64,7 @@ public class Node {
 		users = js.getInt("active_users");
 
 		for (int i = 0; i < arr.length(); i++) {
-			layers.add(new Layer(arr.getJSONObject(i)));
+			layers.add(new Layer(this.nodeId, arr.getJSONObject(i)));
 		}
 	}
 

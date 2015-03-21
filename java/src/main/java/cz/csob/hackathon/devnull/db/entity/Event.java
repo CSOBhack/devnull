@@ -51,7 +51,7 @@ public class Event {
 		String dateStr = js.getString("happened_at");
 		happenedAt = DateUtil.parseTimezoneDateTime(dateStr);
 		actorId = js.getJSONObject("_embedded").getJSONObject("actor").getInt("id");
-		nodeId = js.getJSONObject("_embedded").getJSONObject("action").getInt("id");
+		nodeId = js.getJSONObject("_embedded").getJSONObject("node").getInt("id");
 		action = js.getJSONObject("_embedded").getJSONObject("action").getString("name");
 	}
 
