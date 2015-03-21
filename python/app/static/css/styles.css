@@ -1,0 +1,27 @@
+.footer {
+  font-size: 10px;
+  color: #3a3737;
+  text-align: center;
+  margin-top: -1em;
+  margin-bottom: 1em;
+  clear: both;
+}
+.table tbody tr:hover td, .table tbody tr:hover th {
+  background-color: #000000;
+}
+body {
+  padding-top: 80px;
+}
+.icons {
+  text-align: center;
+}
+
+.icons button {
+  background-color: Transparent;
+  background-repeat:no-repeat;
+  border: none;
+  cursor:pointer;
+  overflow: hidden;
+  outline:none;
+}
+
