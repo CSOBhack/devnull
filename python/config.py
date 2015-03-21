@@ -14,7 +14,7 @@ class DevelopmentConfig(Config):
     DEBUG = True
     BOOTSTRAP_SERVE_LOCAL = True
 
-    # SQLALCHEMY_DATABASE_URI = 'postgresql://uploader:tseuploader007@bsd/uploader_dev'
+    SQLALCHEMY_DATABASE_URI = 'mysql://hackathon:Hacknow1@ninja.cesal.cz:80/hackathon'
 
 config = {
     'development': DevelopmentConfig

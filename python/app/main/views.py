@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
 from flask import render_template
 from . import main
+from app.main.models import Node
 
 
 @main.route('/')
 def index():
-    return render_template('index.html')
+    nodes = Node.all()
+    return render_template('index.html', nodes=nodes)
