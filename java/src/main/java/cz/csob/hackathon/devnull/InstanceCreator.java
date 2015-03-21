@@ -19,6 +19,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import cz.csob.hackathon.devnull.db.entity.Admin;
 import cz.csob.hackathon.devnull.db.entity.Event;
 import cz.csob.hackathon.devnull.db.entity.Hacker;
 import cz.csob.hackathon.devnull.db.entity.Node;
@@ -30,12 +31,14 @@ import cz.csob.hackathon.devnull.db.entity.Node;
 public class InstanceCreator {
 	private static JSONArray nodes;
 	private static JSONArray hackers;
+	private static JSONArray admins;
 	private static List<Event> eventObjs = new ArrayList<Event>();
 
 	public static void getJson() throws MalformedURLException, IOException {
 		// String eventUrl = "http://csob-hackathon.herokuapp.com/api/v1/traffic/";
 		String nodeUrl = "http://csob-hackathon.herokuapp.com/api/v1/nodes";
 		String hackUrl = "http://csob-hackathon.herokuapp.com/api/v1/hackers";
+		String adminsUrl = "http://csob-hackathon.herokuapp.com/api/v1/admins";
 
 		HttpClient httpClient = HttpClientBuilder.create().build();
 		// HttpGet getRequest = new HttpGet(eventUrl);
@@ -71,6 +74,15 @@ public class InstanceCreator {
 		}
 		br = new BufferedReader(new InputStreamReader((response.getEntity().getContent())));
 		hackers = new JSONObject(br.readLine()).getJSONObject("_embedded").getJSONArray("actors");
+
+		getRequest = new HttpGet(adminsUrl);
+		getRequest.addHeader("accept", "application/json");
+		response = httpClient.execute(getRequest);
+		if (response.getStatusLine().getStatusCode() != 200) {
+			throw new RuntimeException("Failed : HTTP error code : " + response.getStatusLine().getStatusCode());
+		}
+		br = new BufferedReader(new InputStreamReader((response.getEntity().getContent())));
+		admins = new JSONObject(br.readLine()).getJSONObject("_embedded").getJSONArray("actors");
 	}
 
 	private static void parseOneNodeEvents(int id) throws JSONException, IOException {
@@ -108,6 +120,16 @@ public class InstanceCreator {
 
 		for (int i = 0; i < hackers.length(); i++) {
 			arr.add(new Hacker(hackers.getJSONObject(i)));
+		}
+
+		return arr;
+	}
+
+	public static ArrayList<Admin> getAdminsList() {
+		ArrayList<Admin> arr = new ArrayList();
+
+		for (int i = 0; i < admins.length(); i++) {
+			arr.add(new Admin(admins.getJSONObject(i)));
 		}
 
 		return arr;
